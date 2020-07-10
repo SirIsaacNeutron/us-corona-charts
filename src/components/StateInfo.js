@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
-import { AreaChart, XAxis, YAxis, Area, Tooltip } from 'recharts';
+
+import Chart from './Chart';
 
 class StateInfo extends React.Component {
     constructor(props) {
@@ -21,7 +22,10 @@ class StateInfo extends React.Component {
         .catch(err => console.log(err));
     }
 
-    render() {
+    getData() {
+        console.log(this.state.covidData[0]);
+        // const dataGrade = this.state.covidData[0].dataQualityGrade;
+
         const deathsConfirmed = this.state.covidData.map(
             day => ({ 
                 deathsConfirmed: day.deathIncrease,
@@ -32,20 +36,50 @@ class StateInfo extends React.Component {
                 )
             }))
             .reverse();
-        console.log(`Results for ${this.props.state}`);
-        console.log(deathsConfirmed);
+        // console.log(`Results for ${this.props.state}`);
+        // console.log(deathsConfirmed);
+        const hospitalizedCurrently = this.state.covidData.map(
+            node => ({
+                hospitalizedCurrently: node.hospitalizedCurrently,
+                date:  new Date(
+                    node.date.toString().substring(0, 4),
+                    (node.date - 100).toString().substring(4, 6),
+                    node.date.toString().substring(6)
+                )
+            }))
+            .reverse();
+        
+        const icu = this.state.covidData.map(
+            node => ({
+                icuCurrently: node.inIcuCurrently,
+                date:  new Date(
+                    node.date.toString().substring(0, 4),
+                    (node.date - 100).toString().substring(4, 6),
+                    node.date.toString().substring(6)
+                )
+            })
+        ).reverse();
+
+        return { deathsConfirmed, hospitalizedCurrently, icu };
+    }
+
+    render() {
+        const { deathsConfirmed, hospitalizedCurrently, icu } = this.getData();
+
         return (
             <div className='state-info'>
                 <h2>{this.props.stateName}</h2>
+                {/* <p>Data Grade: {dataGrade}</p> */ }
                 <hr />
-                <div className='charts'>
-                    <h3>Daily Deaths</h3>
-                    <AreaChart width={350} height={350} data={deathsConfirmed}>
-                        <XAxis dataKey='date' scale='auto' />
-                        <YAxis />
-                        <Area dataKey='deathsConfirmed' fill='black' />
-                        <Tooltip />
-                    </AreaChart>
+                <div className='charts' style={{ display: 'flex' }}>
+                    <Chart title='New Deaths' data={deathsConfirmed} 
+                    dataKey='deathsConfirmed' fill='black'/>
+                    <Chart title='Currently Hospitalized' 
+                    data={hospitalizedCurrently}
+                    dataKey='hospitalizedCurrently' fill='blue'/>
+                    <Chart title='Currently in ICU'
+                    data={icu}
+                    dataKey='icuCurrently' fill='grey' />
                 </div>
             </div>
         );
