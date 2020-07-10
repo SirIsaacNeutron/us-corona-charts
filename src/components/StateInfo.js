@@ -24,7 +24,6 @@ class StateInfo extends React.Component {
 
     getData() {
         console.log(this.state.covidData[0]);
-        // const dataGrade = this.state.covidData[0].dataQualityGrade;
 
         const deathsConfirmed = this.state.covidData.map(
             day => ({ 
@@ -71,9 +70,9 @@ class StateInfo extends React.Component {
                 <h2>{this.props.stateName}</h2>
                 {/* <p>Data Grade: {dataGrade}</p> */ }
                 <hr />
-                <div className='charts' style={{ display: 'flex' }}>
+                <div className='charts'>
                     <Chart title='New Deaths' data={deathsConfirmed} 
-                    dataKey='deathsConfirmed' fill='black'/>
+                    dataKey='deathsConfirmed' fill='red'/>
                     <Chart title='Currently Hospitalized' 
                     data={hospitalizedCurrently}
                     dataKey='hospitalizedCurrently' fill='blue'/>
