@@ -80,32 +80,34 @@ class App extends React.Component {
 		<StateInfo key={index} state={s} stateName={STATE_CODES[s]}/>);
 		
 	let options = [];
+	let keyNum = 0;
 	for (const stateCode in STATE_CODES) {
 		const stateName = STATE_CODES[stateCode];
-		options.push(<option value={stateCode}>{stateName}</option>)
+		options.push(<option key={keyNum} value={stateCode}>{stateName}</option>)
+		++keyNum;
 	}
 
     return (
       <div className='App'>
-		  <div className='top bg-dark text-white'>
-		  	<h1><i>US Corona Charts</i></h1>
+		<div className='top bg-dark text-white'>
+			<h1><i>US Corona Charts</i></h1>
 			  
 			<p className='pb-2'>Data Source: <a href='https://covidtracking.com/' 
 			target='_blank' rel='noopener noreferrer'>
 				The Covid Tracking Project</a>
 			</p> 
-		  </div>
-          <form>
-			<label for='options'>Select states:</label>
+		</div>
+        <form>
+			<label htmlFor='options'>Select states:</label>
 			<br />
 			<select id='options' multiple={true} value={this.state.states} 
 			onChange={this.handleChange}>
 				{options}
 			</select>
 			<br />
-		  </form>
-          {stateInfos}
-      </div>
+		</form>
+        {stateInfos}
+    	</div>
     );
   }
 }
