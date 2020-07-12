@@ -95,7 +95,11 @@ class App extends React.Component {
 				The Covid Tracking Project</a>
 			</p> 
 		  </div>
-          <form>
+<<<<<<< HEAD
+          <form onSubmit={this.handleSubmit}>
+=======
+          <form onSubmit={this.handleSubmit}>
+>>>>>>> cdb3ef03b291f9d9fc3df0838fc9c9ccbbebe10c
 			<label for='options'>Select states:</label>
 			<br />
 			<select id='options' multiple={true} value={this.state.states} 
