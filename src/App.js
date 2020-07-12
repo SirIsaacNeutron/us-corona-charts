@@ -72,7 +72,14 @@ class App extends React.Component {
         <StateInfo key={index} state={s} stateName={STATE_CODES[s]}/>);
     return (
       <div className='App'>
-          <h1>Hello, world!</h1> 
+		  <div className='top bg-dark text-white'>
+		  	<h1><i>US Corona Charts</i></h1>
+			  
+			<p className='pb-2'>Data Source: <a href='https://covidtracking.com/' 
+			target='_blank' rel='noopener noreferrer'>
+				The Covid Tracking Project</a>
+			</p> 
+		  </div>
           <p>Buttons go here.</p>
           {stateInfos}
       </div>

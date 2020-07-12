@@ -70,7 +70,7 @@ class StateInfo extends React.Component {
                 <h2>{this.props.stateName}</h2>
                 {/* <p>Data Grade: {dataGrade}</p> */ }
                 <hr />
-                <div className='charts'>
+                <div className='charts d-flex justify-content-between'>
                     <Chart title='New Deaths' data={deathsConfirmed} 
                     dataKey='deathsConfirmed' fill='red'/>
                     <Chart title='Currently Hospitalized' 
