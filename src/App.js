@@ -3,7 +3,7 @@ import './App.css';
 import StateInfo from './components/StateInfo';
 
 const STATE_CODES = {
-  'al': 'Alabama',
+  	'al': 'Alabama',
 	'ak': 'Alaska',
 	'az': 'Arizona',
 	'ar': 'Arkansas',
@@ -55,12 +55,20 @@ const STATE_CODES = {
 	'wi': 'Wisconsin',
 	'wy': 'Wyoming',
 }
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      states: ['fl', 'ca'] // TODO: add buttons to allow changes to this array
-    }
+      states: ['fl', 'ca']
+	}
+	this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+	this.setState({
+		states: Array.from(e.target.selectedOptions, item => item.value)
+	});
   }
 
   render() {
@@ -69,7 +77,14 @@ class App extends React.Component {
           return a < b ? -1 : 1; // Alphabetically sort the states for now
         })
         .map((s, index) => 
-        <StateInfo key={index} state={s} stateName={STATE_CODES[s]}/>);
+		<StateInfo key={index} state={s} stateName={STATE_CODES[s]}/>);
+		
+	let options = [];
+	for (const stateCode in STATE_CODES) {
+		const stateName = STATE_CODES[stateCode];
+		options.push(<option value={stateCode}>{stateName}</option>)
+	}
+
     return (
       <div className='App'>
 		  <div className='top bg-dark text-white'>
@@ -80,7 +95,15 @@ class App extends React.Component {
 				The Covid Tracking Project</a>
 			</p> 
 		  </div>
-          <p>Buttons go here.</p>
+          <form>
+			<label for='options'>Select states:</label>
+			<br />
+			<select id='options' multiple={true} value={this.state.states} 
+			onChange={this.handleChange}>
+				{options}
+			</select>
+			<br />
+		  </form>
           {stateInfos}
       </div>
     );
