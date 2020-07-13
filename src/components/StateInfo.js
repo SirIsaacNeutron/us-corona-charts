@@ -30,9 +30,9 @@ class StateInfo extends React.Component {
     }
 
     getData() {
-        const deathsConfirmed = this.state.covidData.map(
+        const deathIncrease = this.state.covidData.map(
             day => ({ 
-                deathsConfirmed: day.deathIncrease,
+                deathIncrease: day.deathIncrease,
                 date:  getDate(day)
             }))
             .reverse();
@@ -73,15 +73,29 @@ class StateInfo extends React.Component {
             })
         ).reverse();
 
-        return { deathsConfirmed, hospitalizedCurrently, 
+        const deaths = this.state.covidData.map(
+            node => ({
+                death: node.death,
+                date: getDate(node)
+            })
+        ).reverse();
+
+        const recovered = this.state.covidData.map(
+            node => ({
+                recovered: node.recovered,
+                date: getDate(node)
+            })
+        ).reverse();
+
+        return { deathIncrease, hospitalizedCurrently, 
             icu, testIncrease, ventilatorCurrently,
-            positiveIncrease };
+            positiveIncrease, deaths, recovered };
     }
 
     render() {
-        const { deathsConfirmed, hospitalizedCurrently, icu, 
+        const { deathIncrease, hospitalizedCurrently, icu, 
         testIncrease, ventilatorCurrently,
-        positiveIncrease } = this.getData();
+        positiveIncrease, deaths, recovered } = this.getData();
 
         let dataGrade = '';
         // This check is needed or else the dev server will crash with
@@ -97,8 +111,8 @@ class StateInfo extends React.Component {
                 target='_blank' rel='noopener noreferrer'>Current Data Grade: {dataGrade}</a></p>
                 <hr />
                 <div className='charts d-flex justify-content-between'>
-                    <Chart title='COVID Death Increase' data={deathsConfirmed} 
-                    dataKey='deathsConfirmed' fill='red'/>
+                    <Chart title='Total COVID Deaths' data={deaths}
+                    dataKey='death' fill='red' />
                     <Chart title='Currently Hospitalized' 
                     data={hospitalizedCurrently}
                     dataKey='hospitalizedCurrently' fill='blue'/>
@@ -109,13 +123,17 @@ class StateInfo extends React.Component {
                     data={testIncrease}
                     dataKey='testResultIncrease' fill='purple' />
                 </div>
-                <div className='charts d-flex justify-content-around'>
+                <div className='charts d-flex justify-content-between'>
+                    <Chart title='COVID Death Increase' data={deathIncrease} 
+                    dataKey='deathIncrease' fill='indigo'/>
+                    <Chart title='Total Recovered' data={recovered}
+                    dataKey='recovered' fill='green' />
                     <Chart title='Currently on Ventilator'
                     data={ventilatorCurrently}
                     dataKey='ventilatorCurrently' fill='black' />
                     <Chart title='New Positive Cases'
                     data={positiveIncrease}
-                    dataKey='positiveIncrease' fill='green' />
+                    dataKey='positiveIncrease' fill='brown' />
                 </div>
             </div>
         );

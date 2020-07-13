@@ -60,7 +60,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      states: ['fl', 'ca']
+      states: ['fl', 'ca', 'ny']
 	}
 	this.handleChange = this.handleChange.bind(this);
   }
@@ -97,6 +97,24 @@ class App extends React.Component {
 				The Covid Tracking Project</a>
 			</p> 
 		</div>
+		<label for='data-notes'>Data Notes:</label>
+		<ul id='data-notes'>
+			<li>
+				"COVID Death Increase" and "Total COVID Deaths" seem to 
+				include "probable" deaths – deaths where COVID-19 was listed 
+				as the cause of death, but without a lab test confirming that 
+				that is the case.
+			</li>
+			<li>
+				Blank spots in charts = no data available for those dates.
+			</li>
+			<li>
+				Negative values show up in some of the charts for certain states. 
+				These negative values show up in the COVID Tracking Project's data, 
+				so they are not bugs on your end. I haven't found an explanation 
+				for why these negative values exist.
+			</li>
+		</ul>
         <form className='mb-2'>
 			<label htmlFor='options'>Select locations:</label>
 			<br />
