@@ -9,10 +9,10 @@ const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 
 const tooltip = props => {
     // Based off http://recharts.org/en-US/examples/CustomContentOfTooltip
-    // The two payload checks are necessary. Without them, the app will
+    // All the checks are needed. Without them, the app will
     // crash if you try to get the tooltip of a different graph or when
     // you start the dev server for the first time. 
-    if (props !== null && props.active && props.payload !== undefined 
+    if (props !== null && props.active && props.payload !== null 
         && props.payload.length !== 0) {
         const d = props.payload[0].payload.date;
         const dateString = `${MONTH_NAMES[d.getMonth()]} ${d.getDate()}`;

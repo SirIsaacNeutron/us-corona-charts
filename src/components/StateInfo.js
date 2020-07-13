@@ -115,7 +115,7 @@ class StateInfo extends React.Component {
                     dataKey='ventilatorCurrently' fill='black' />
                     <Chart title='New Positive Cases'
                     data={positiveIncrease}
-                    dataKey='positiveIncrease' fill='yellow' />
+                    dataKey='positiveIncrease' fill='green' />
                 </div>
             </div>
         );
