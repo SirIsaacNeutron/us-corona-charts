@@ -77,7 +77,7 @@ class App extends React.Component {
           return a < b ? -1 : 1; // Alphabetically sort the states for now
         })
         .map((s, index) => 
-		<StateInfo key={Math.random()} state={s} stateName={STATE_CODES[s]}/>);
+		<StateInfo key={s} state={s} stateName={STATE_CODES[s]}/>);
 		
 	let options = [];
 	let keyNum = 0;
