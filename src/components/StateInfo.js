@@ -52,11 +52,36 @@ class StateInfo extends React.Component {
             })
         ).reverse();
 
-        return { deathsConfirmed, hospitalizedCurrently, icu };
+        const testIncrease = this.state.covidData.map(
+            node => ({
+                testResultIncrease: node.totalTestResultsIncrease,
+                date: getDate(node)
+            })
+        ).reverse();
+
+        const ventilatorCurrently = this.state.covidData.map(
+            node => ({
+                ventilatorCurrently: node.onVentilatorCurrently,
+                date: getDate(node)
+            })
+        ).reverse();
+
+        const positiveIncrease = this.state.covidData.map(
+            node => ({
+                positiveIncrease: node.positiveIncrease,
+                date: getDate(node)
+            })
+        ).reverse();
+
+        return { deathsConfirmed, hospitalizedCurrently, 
+            icu, testIncrease, ventilatorCurrently,
+            positiveIncrease };
     }
 
     render() {
-        const { deathsConfirmed, hospitalizedCurrently, icu } = this.getData();
+        const { deathsConfirmed, hospitalizedCurrently, icu, 
+        testIncrease, ventilatorCurrently,
+        positiveIncrease } = this.getData();
 
         let dataGrade = '';
         // This check is needed or else the dev server will crash with
@@ -72,7 +97,7 @@ class StateInfo extends React.Component {
                 target='_blank' rel='noopener noreferrer'>Current Data Grade: {dataGrade}</a></p>
                 <hr />
                 <div className='charts d-flex justify-content-between'>
-                    <Chart title='New Deaths' data={deathsConfirmed} 
+                    <Chart title='Confirmed COVID Deaths' data={deathsConfirmed} 
                     dataKey='deathsConfirmed' fill='red'/>
                     <Chart title='Currently Hospitalized' 
                     data={hospitalizedCurrently}
@@ -80,6 +105,17 @@ class StateInfo extends React.Component {
                     <Chart title='Currently in ICU'
                     data={icu}
                     dataKey='icuCurrently' fill='grey' />
+                    <Chart title='New Test Results'
+                    data={testIncrease}
+                    dataKey='testResultIncrease' fill='purple' />
+                </div>
+                <div className='charts d-flex justify-content-around'>
+                    <Chart title='Currently on Ventilator'
+                    data={ventilatorCurrently}
+                    dataKey='ventilatorCurrently' fill='black' />
+                    <Chart title='New Positive Cases'
+                    data={positiveIncrease}
+                    dataKey='positiveIncrease' fill='yellow' />
                 </div>
             </div>
         );
