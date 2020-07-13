@@ -5,6 +5,13 @@ import axios from 'axios';
 
 import Chart from './Chart';
 
+const getDate = node => {
+    return new Date(
+        node.date.toString().substring(0, 4),
+        (node.date - 100).toString().substring(4, 6),
+        node.date.toString().substring(6)
+    );
+}
 class StateInfo extends React.Component {
     constructor(props) {
         super(props);
@@ -26,11 +33,7 @@ class StateInfo extends React.Component {
         const deathsConfirmed = this.state.covidData.map(
             day => ({ 
                 deathsConfirmed: day.deathIncrease,
-                date:  new Date(
-                    day.date.toString().substring(0, 4),
-                    (day.date - 100).toString().substring(4, 6),
-                    day.date.toString().substring(6)
-                )
+                date:  getDate(day)
             }))
             .reverse();
         // console.log(`Results for ${this.props.state}`);
@@ -38,22 +41,14 @@ class StateInfo extends React.Component {
         const hospitalizedCurrently = this.state.covidData.map(
             node => ({
                 hospitalizedCurrently: node.hospitalizedCurrently,
-                date:  new Date(
-                    node.date.toString().substring(0, 4),
-                    (node.date - 100).toString().substring(4, 6),
-                    node.date.toString().substring(6)
-                )
+                date:  getDate(node)
             }))
             .reverse();
         
         const icu = this.state.covidData.map(
             node => ({
                 icuCurrently: node.inIcuCurrently,
-                date:  new Date(
-                    node.date.toString().substring(0, 4),
-                    (node.date - 100).toString().substring(4, 6),
-                    node.date.toString().substring(6)
-                )
+                date:  getDate(node)
             })
         ).reverse();
 
@@ -74,7 +69,7 @@ class StateInfo extends React.Component {
             <div className='state-info'>
                 <h2>{this.props.stateName}</h2>
                 <p><a href='https://covidtracking.com/about-data/state-grades'
-                target='_blank' rel='noopener noreferrer'>Data Grade: {dataGrade}</a></p>
+                target='_blank' rel='noopener noreferrer'>Current Data Grade: {dataGrade}</a></p>
                 <hr />
                 <div className='charts d-flex justify-content-between'>
                     <Chart title='New Deaths' data={deathsConfirmed} 
