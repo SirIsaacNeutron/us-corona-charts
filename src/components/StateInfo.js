@@ -97,7 +97,7 @@ class StateInfo extends React.Component {
                 target='_blank' rel='noopener noreferrer'>Current Data Grade: {dataGrade}</a></p>
                 <hr />
                 <div className='charts d-flex justify-content-between'>
-                    <Chart title='Confirmed COVID Deaths' data={deathsConfirmed} 
+                    <Chart title='COVID Death Increase' data={deathsConfirmed} 
                     dataKey='deathsConfirmed' fill='red'/>
                     <Chart title='Currently Hospitalized' 
                     data={hospitalizedCurrently}

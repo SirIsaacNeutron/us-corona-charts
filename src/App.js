@@ -77,7 +77,7 @@ class App extends React.Component {
           return a < b ? -1 : 1; // Alphabetically sort the states for now
         })
         .map((s, index) => 
-		<StateInfo key={index} state={s} stateName={STATE_CODES[s]}/>);
+		<StateInfo key={Math.random()} state={s} stateName={STATE_CODES[s]}/>);
 		
 	let options = [];
 	let keyNum = 0;
@@ -98,7 +98,7 @@ class App extends React.Component {
 			</p> 
 		</div>
         <form className='mb-2'>
-			<label htmlFor='options'>Select states:</label>
+			<label htmlFor='options'>Select locations:</label>
 			<br />
 			<select id='options' multiple={true} value={this.state.states} 
 			onChange={this.handleChange}>
