@@ -23,8 +23,6 @@ class StateInfo extends React.Component {
     }
 
     getData() {
-        console.log(this.state.covidData[0]);
-
         const deathsConfirmed = this.state.covidData.map(
             day => ({ 
                 deathsConfirmed: day.deathIncrease,
@@ -65,10 +63,18 @@ class StateInfo extends React.Component {
     render() {
         const { deathsConfirmed, hospitalizedCurrently, icu } = this.getData();
 
+        let dataGrade = '';
+        // This check is needed or else the dev server will crash with
+        // an error
+        if (this.state.covidData[0] !== undefined) {
+            dataGrade = this.state.covidData[0].dataQualityGrade
+        }
+
         return (
             <div className='state-info'>
                 <h2>{this.props.stateName}</h2>
-                {/* <p>Data Grade: {dataGrade}</p> */ }
+                <p><a href='https://covidtracking.com/about-data/state-grades'
+                target='_blank' rel='noopener noreferrer'>Data Grade: {dataGrade}</a></p>
                 <hr />
                 <div className='charts d-flex justify-content-between'>
                     <Chart title='New Deaths' data={deathsConfirmed} 
