@@ -10,3 +10,5 @@ cd us-corona-charts
 npm i
 npm start
 ```
+
+This website uses [React](https://reactjs.org/), so you'll need to have that installed in order for the above commands to work.
